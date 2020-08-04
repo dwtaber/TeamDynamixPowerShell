@@ -46,6 +46,8 @@ function Get-TdxAsset
         $Splat = @{}
         $SearchParameters = @{}
 
+        $Splat["Sandbox"] = $Sandbox
+
         if ($PSCmdlet.ParameterSetName -eq "IDLookup")
         {
             $Splat["Method"] = [Microsoft.PowerShell.Commands.WebRequestMethod]::Get

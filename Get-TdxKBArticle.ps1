@@ -1,9 +1,9 @@
-function Get-TdxTicket
+function Get-TdxKBArticle
 {
     [CmdletBinding()]
     param
     (
-        # Retrieve a single ticket by its ID.
+        # Retrieve a single KB article by its ID.
         # Returns information that is not returned when using the other parameter sets, such as custom attributes.
         [Alias("ID")]
         [Parameter(
@@ -12,9 +12,9 @@ function Get-TdxTicket
             Position = 0
         )]
         [int]
-        $TicketID,
+        $ArticleID,
 
-        # Return multiple tickets by one or more criteria.
+        # Return multiple articles by one or more criteria.
         [Parameter(
             Mandatory = $true,
             ParameterSetName = "SearchObject",
@@ -23,7 +23,7 @@ function Get-TdxTicket
         [System.Collections.IDictionary]
         $SearchObject,
 
-        # String search in title, description, custom attribute, reference code, and feed fields.
+        # String search within articles.
         # Comparable to search in TDX web UI.
         [Parameter(
             ParameterSetName = "SearchParameters",
@@ -35,7 +35,7 @@ function Get-TdxTicket
         [string]
         $SearchText,
 
-        # Sets whether to look at production tickets or sandbox tickets.
+        # Sets whether to look at production articles or sandbox articles.
         [Alias("Sb")]
         [Parameter(
             Mandatory = $false
@@ -46,7 +46,7 @@ function Get-TdxTicket
 
     begin
     {
-        $BaseUriLeaf = "/362/tickets"
+        $BaseUriLeaf = "/1802/knowledgebase"
         $Splat = @{}
         $SearchParameters = @{}
 
@@ -55,7 +55,7 @@ function Get-TdxTicket
         if ($PSCmdlet.ParameterSetName -eq "IDLookup")
         {
             $Splat["Method"] = [Microsoft.PowerShell.Commands.WebRequestMethod]::Get
-            $Splat["UriLeaf"] = "$BaseUriLeaf/$TicketID"
+            $Splat["UriLeaf"] = "$BaseUriLeaf/$ArticleID"
         }
 
         elseif ($PSCmdlet.ParameterSetName -eq "SearchParameters")
