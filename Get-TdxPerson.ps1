@@ -6,7 +6,7 @@ function Get-TdxPerson {
         #Returns information that is not returned when using the other parameter sets, e.g. custom attributes.
         [Alias("Uid","ID")]
         [Parameter(
-            ParameterSetName = "Guid",
+            ParameterSetName = "IDLookup",
             Mandatory = $true,
             Position = 0,
             ValueFromPipeline = $true,
@@ -15,6 +15,7 @@ function Get-TdxPerson {
         [guid]
         $Guid,
 
+        # String search in name, primary e-mail, and organizational ID fields, comparable to search in TDX web UI
         [Parameter(
             ParameterSetName = "SearchParameters",
             Mandatory = $true,
@@ -25,7 +26,7 @@ function Get-TdxPerson {
         [string]
         $SearchText,
 
-        # Return multiple assets by one or more criteria.
+        # Return multiple people by one or more criteria.
         [Parameter(
             Mandatory = $true,
             ParameterSetName = "SearchObject",
@@ -48,7 +49,7 @@ function Get-TdxPerson {
         $Splat = @{}
         $SearchParameters = @{}
 
-        if ($PSCmdlet.ParameterSetName -eq "Guid")
+        if ($PSCmdlet.ParameterSetName -eq "IDLookup")
         {
             $Splat["Method"] = [Microsoft.PowerShell.Commands.WebRequestMethod]::Get
             $Splat["UriLeaf"] = "$BaseUriLeaf/$($Guid.Guid)"

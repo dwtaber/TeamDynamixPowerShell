@@ -22,3 +22,4 @@ New-Variable -Name TdxTokenExpiry
 . $PSScriptRoot\Get-TdxScriptVariables.ps1
 . $PSScriptRoot\Get-TdxAsset.ps1
 . $PSScriptRoot\Get-TdxPerson.ps1
+. $PSScriptRoot\Get-TdxTicket.ps1
