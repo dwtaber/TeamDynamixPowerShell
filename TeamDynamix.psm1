@@ -1,3 +1,5 @@
+using namespace System.Collections.Generic
+
 #Derived from the PSCredential supplied to New-TdxToken
 #Used for both production and sandbox
 New-Variable -Name TdxUserName
@@ -15,6 +17,13 @@ New-Variable -Name SbUriBase
 New-Variable -Name TdxTokenExpiry
 
 . $PSScriptRoot\TicketEnums.ps1
+. $PSScriptRoot\TicketSearchParams.ps1
+
+# Classes
+. $PSScriptRoot\Classes\TdxCustomAttribute.ps1
+. $PSScriptRoot\Classes\TdxAttachment.ps1
+. $PSScriptRoot\Classes\TdxAsset.ps1
+
 . $PSScriptRoot\CheckSandbox.ps1
 . $PSScriptRoot\Invoke-TdxMethod.ps1
 . $PSScriptRoot\SearchParametersToJson.ps1
@@ -24,3 +33,5 @@ New-Variable -Name TdxTokenExpiry
 . $PSScriptRoot\Get-TdxKBArticle.ps1
 . $PSScriptRoot\Get-TdxPerson.ps1
 . $PSScriptRoot\Get-TdxTicket.ps1
+
+. $PSScriptRoot\Get-TdxAssetBeta.ps1

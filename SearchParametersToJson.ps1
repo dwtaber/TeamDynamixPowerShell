@@ -1,7 +1,10 @@
+using namespace System.Collections.Generic
+
 # Issue with either this function or how it was being used in functions.  Need to investigate and fix before using.
 
 function Script:SearchParametersToJson
 {
+<#
     param
     (
         [Parameter()]
@@ -21,4 +24,33 @@ function Script:SearchParametersToJson
     $SearchParameterJson = $ParameterSetHashtable | ConvertTo-Json -Depth 10
 
     return $SearchParameterJson
+#>
+
+    param (
+        [Parameter(
+            Mandatory = $true,
+            Position = 0
+        )]
+        [Dictionary[[string],[string]]]
+        $CmdletToApiDictionary
+    )
+
+    $hash = @{}
+
+    $boundParams = (Get-Variable PSBoundParameters -Scope 1).Value
+
+    Write-Verbose "Bound Parameters `r`n$boundParams"
+
+    foreach ($param in $CmdletToApiDictionary.Keys)
+    {
+        if ($boundParams.ContainsKey($param))
+        {
+            $hash[$CmdletToApiDictionary[$param]] = $boundParams[$param]
+        }
+    }
+
+    $json = $hash | ConvertTo-Json -Depth 10
+
+    return $json
+
 }
